@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NestJS Map Example</title>
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 1000px;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  const coordinates = <%- coordinates %>;
+  console.log(coordinates)
+
+
+  const map = L.map('map').setView([37.5, 127.1], 12); // 중심 좌표와 줌 레벨 설정
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  const polyline = L.polyline(coordinates, { color: 'blue' }).addTo(map);
+
+  map.fitBounds(polyline.getBounds());
+</script>
+</body>
+</html>
